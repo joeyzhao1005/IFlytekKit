@@ -3,42 +3,47 @@ package com.kit.iflytek;
 import android.text.TextUtils;
 
 import com.google.gson.Gson;
+import com.iflytek.cloud.UnderstanderResult;
+import com.kit.iflytek.assistant.AnswerManager;
 import com.kit.iflytek.enums.Operation;
+import com.kit.iflytek.enums.Service;
 import com.kit.iflytek.model.Answer;
 import com.kit.iflytek.model.UnderstandResponse;
-import com.kit.utils.ArrayUtils;
-import com.kit.utils.ZogUtils;
-import com.kit.utils.RandomUtils;
-
-import java.util.ArrayList;
+import com.kit.utils.log.ZogUtils;
 
 public class DoUnderstandResponse {
 
     /**
      * 从语义理解返回的结果中解析出UnderstandResponse UnderstandResponse.text即为命令
-     * @param res
+     *
      * @return
      */
-    public static UnderstandResponse getUnderstandResponse(String res) {
+    public static UnderstandResponse getUnderstandResponse(UnderstanderResult result) {
+
+        if (result == null)
+            return null;
+
+        String res = result.getResultString();
 
         UnderstandResponse obj = null;
         if (res != null && !TextUtils.isEmpty(res)) {
 
-            ZogUtils.printLog(DoUnderstandResponse.class, res);
+            ZogUtils.i(res);
 
             Gson gson = new Gson();
 
             obj = gson.fromJson(res, UnderstandResponse.class);
         }
 
-        ZogUtils.printLog(DoUnderstandResponse.class, obj.text);
 
         return obj;
 
     }
 
+
     /**
      * 不通过网络，直接匹配到指令
+     *
      * @param commondStr
      * @param answerStr
      * @return
@@ -54,7 +59,7 @@ public class DoUnderstandResponse {
 //            obj = gson.toJson(obj);
 //
 //
-//        LogUtils.printLog(DoUnderstandResponse.class, obj.text);
+//        LogUtils.i(DoUnderstandResponse.class, obj.text);
 
         return obj;
 
@@ -65,36 +70,33 @@ public class DoUnderstandResponse {
 
         Answer answer = creatAnswer("T", defaultAnswerStr);
 
-        if (ur.operation != null) {
-            if (ur.operation.equals(Operation.ANSWER)) {
+        if (ur != null && ur.operation != null) {
+            UnderstandResponse resp;
+            switch (ur.service) {
+                case Service.WEATHER:
+                    break;
 
-                if (!ArrayUtils.isNullOrEmpty(ur.moreResults)) {
-
-                    ArrayList<Answer> answerList = new ArrayList<Answer>();
-                    answerList.add(ur.answer);
-
-                    for (UnderstandResponse understand : ur.moreResults) {
-                        answerList.add(understand.answer);
-                    }
-
-                    int position = RandomUtils.getRandomIntNum(0,
-                            answerList.size() - 1);
-
-                    ZogUtils.printLog(DoUnderstandResponse.class,
-                            "answerList.size():" + answerList.size()
-                                    + " position:" + position);
+                case Service.APP:
+                    break;
 
 
-                    answer = answerList.get(position);
+                case Operation.ANSWER:
+                    resp = AnswerManager.getInstance().getBestOne(ur.moreResults);
+                    if (resp != null)
+                        answer = resp.answer;
+                    break;
 
-                    return answer;
+                case Operation.QUERY:
+                    resp = AnswerManager.getInstance().getBestOne(ur.moreResults);
+                    break;
 
-                } else {
-                    if (ur.answer != null)
-                        return ur.answer;
 
-                }
+                default:
+                    answer = ur.answer;
+
+
             }
+
 
         }
         return answer;

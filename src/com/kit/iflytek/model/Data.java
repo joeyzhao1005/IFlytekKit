@@ -10,14 +10,15 @@ package com.kit.iflytek.model;
  */
 
 public class Data {
-	/**
-	 * 答复文本
-	 */
-	public String text;
 
-	/**
-	 * 答复类型
-	 */
+	private IFlytekResult[] result;
 
-	public String type;
+
+	public IFlytekResult[] getResult() {
+		return result;
+	}
+
+	public void setResult(IFlytekResult[] result) {
+		this.result = result;
+	}
 }

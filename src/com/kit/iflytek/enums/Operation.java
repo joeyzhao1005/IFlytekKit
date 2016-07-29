@@ -6,21 +6,30 @@ public class Operation {
     /**
      * 打电话
      */
-    public static String CALL = "CALL";
+    public static final  String CALL = "CALL";
 
 
     /**
      * 发送（短消息）
      */
-    public static String SEND = "SEND";
+    public static final String SEND = "SEND";
 
     /**
      * 应答
      */
-    public static String ANSWER = "ANSWER";
+    public static final String ANSWER = "ANSWER";
 
     /**
      * 查询
      */
-    public static String QUERY = "QUERY";
+    public static final  String QUERY = "QUERY";
+
+
+
+    /**
+     * 天气
+     */
+    public static final String WEATHER = "weather";
+
+
 }

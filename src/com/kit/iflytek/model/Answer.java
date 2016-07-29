@@ -9,6 +9,15 @@ package com.kit.iflytek.model;
 
 public class Answer {
 
+    public static class Type{
+        public static final String TEXT = "T";
+        public static final String URL = "U";
+        public static final String TEXT_URL = "TU";
+        public static final String IMAGE_TEXT = "IT";
+        public static final String IMAGE_TEXT_URL = "ITU";
+
+    }
+
     /**
      * @IsMust true
      * @Describe 显示的类型, 通过这个类型, 可以确定数据的返回内容和客户 端的显示内容: T:text数据 U:url数据
