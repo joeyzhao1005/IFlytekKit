@@ -238,6 +238,10 @@ public class IFlytekTools {
     }
 
 
+    public void stopSpeaking(){
+        mTts.stopSpeaking();
+    }
+
 
 
     public void initVoicer(Context context, int witch) {
