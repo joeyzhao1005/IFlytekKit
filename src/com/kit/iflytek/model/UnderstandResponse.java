@@ -1,5 +1,7 @@
 package com.kit.iflytek.model;
 
+import com.kit.utils.GsonUtils;
+
 public class UnderstandResponse {
 	/**
 	 * @IsMust true
@@ -84,5 +86,11 @@ public class UnderstandResponse {
 	 * @Describe 在存在多个候选结果时,用于提供更多的结果描述
 	 */
 	public UnderstandResponse[] moreResults;
+
+
+	@Override
+	public UnderstandResponse clone(){
+		return GsonUtils.getObj(GsonUtils.toJson(this),UnderstandResponse.class);
+	}
 
 }

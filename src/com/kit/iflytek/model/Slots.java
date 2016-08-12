@@ -1,8 +1,6 @@
 package com.kit.iflytek.model;
 
 
-import com.kit.utils.GsonUtils;
-
 import java.util.Map;
 
 /**
@@ -51,6 +49,8 @@ public class Slots {
 
 
     public Map<String, Object> dataMap;
+
+
 
 
 }

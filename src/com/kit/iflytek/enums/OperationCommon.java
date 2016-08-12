@@ -1,6 +1,6 @@
 package com.kit.iflytek.enums;
 
-public class Operation {
+public class OperationCommon {
 
 
     /**

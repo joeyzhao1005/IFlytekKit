@@ -3,6 +3,7 @@ package com.kit.iflytek.assistant;
 import com.kit.extend.iflytek.R;
 import com.kit.iflytek.enums.Service;
 import com.kit.iflytek.model.Answer;
+import com.kit.iflytek.model.IFlyTekLocation;
 import com.kit.iflytek.model.UnderstandResponse;
 import com.kit.utils.ResWrapper;
 import com.kit.utils.StringUtils;
@@ -42,7 +43,10 @@ public class WeatherManager {
 
         String replyStr;
 
-        if (StringUtils.isEmptyOrNullOrNullStr(understandResponse.semantic.slots.getLocation().getCityAddr())) {
+
+        IFlyTekLocation location = understandResponse.semantic.getSlots("location", IFlyTekLocation.class);
+
+        if (location == null || StringUtils.isEmptyOrNullOrNullStr(location.getCityAddr())) {
             //地址为空说明没有言明"城市",需要定位城市,然后自动得出当前城市的天气情况
 
             if (locator == null)
@@ -60,7 +64,7 @@ public class WeatherManager {
 
                 case Operation.QUERY:
                     replyStr = String.format(ResWrapper.getInstance().getString(R.string.locate_where)
-                            , understandResponse.semantic.slots.getLocation().getCity());
+                            , location.getCity());
                     understandResponse.answer = AnswerManager.getInstance().creatAnswer(replyStr, Answer.Type.TEXT);
 
                     break;

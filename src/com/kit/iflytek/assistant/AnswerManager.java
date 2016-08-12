@@ -1,6 +1,6 @@
 package com.kit.iflytek.assistant;
 
-import com.kit.iflytek.enums.Operation;
+import com.kit.iflytek.enums.OperationCommon;
 import com.kit.iflytek.enums.Service;
 import com.kit.iflytek.model.Answer;
 import com.kit.iflytek.model.UnderstandResponse;
@@ -34,7 +34,7 @@ public class AnswerManager {
         UnderstandResponse want = null;
         for (UnderstandResponse u : understandResponses) {
             switch (u.operation) {
-                case Operation.ANSWER:
+                case OperationCommon.ANSWER:
                     switch (u.service) {
                         case Service.CHAT:
                             want = u;

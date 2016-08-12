@@ -5,7 +5,7 @@ import android.text.TextUtils;
 import com.google.gson.Gson;
 import com.iflytek.cloud.UnderstanderResult;
 import com.kit.iflytek.assistant.AnswerManager;
-import com.kit.iflytek.enums.Operation;
+import com.kit.iflytek.enums.OperationCommon;
 import com.kit.iflytek.enums.Service;
 import com.kit.iflytek.model.Answer;
 import com.kit.iflytek.model.UnderstandResponse;
@@ -80,13 +80,13 @@ public class DoUnderstandResponse {
                     break;
 
 
-                case Operation.ANSWER:
+                case OperationCommon.ANSWER:
                     resp = AnswerManager.getInstance().getBestOne(ur.moreResults);
                     if (resp != null)
                         answer = resp.answer;
                     break;
 
-                case Operation.QUERY:
+                case OperationCommon.QUERY:
                     resp = AnswerManager.getInstance().getBestOne(ur.moreResults);
                     break;
 

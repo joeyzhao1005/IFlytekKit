@@ -276,7 +276,16 @@ public class Service {
 
 
 
+    /**
+     * 情景,连问
+     */
+    public static final String SITUATION = "situation";
+
+
     public static final String TEXT = "text";
+
+
+
 
 }
 
