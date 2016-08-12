@@ -10,7 +10,6 @@ import com.kit.iflytek.model.Data;
 import com.kit.iflytek.model.UnderstandResponse;
 import com.kit.iflytek.model.telephone.ContactInfoWapper;
 import com.kit.utils.AppUtils;
-import com.kit.utils.CallAndSmsUtils;
 import com.kit.utils.ListUtils;
 import com.kit.utils.ResWrapper;
 import com.kit.utils.StringUtils;
@@ -18,20 +17,21 @@ import com.kit.utils.contact.ContactInfo;
 import com.kit.utils.contact.ContactUtils;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by Zhao on 16/7/21.
  */
-public class TelephoneManager {
+public class MessageManager {
 
-    private static TelephoneManager telephone;
+    private static MessageManager messageManger;
 
 
-    public static TelephoneManager getInstance() {
-        if (telephone == null)
-            telephone = new TelephoneManager();
+    public static MessageManager getInstance() {
+        if (messageManger == null)
+            messageManger = new MessageManager();
 
-        return telephone;
+        return messageManger;
     }
 
     /**
@@ -48,8 +48,8 @@ public class TelephoneManager {
 
         switch (understandResponse.operation) {
 
-            case Operation.CALL:
-                return callPhone(understandResponse);
+            case Operation.SEND:
+                return sendMessage(understandResponse);
 
 
         }
@@ -61,15 +61,20 @@ public class TelephoneManager {
 
 
     /**
-     * 拨打电话
+     * @param
+     * @return Answer 返回类型
+     * @Title sendMessage
+     * @Description 发送短信
      */
-    public static UnderstandResponse callPhone(UnderstandResponse ur) {
+    public static UnderstandResponse sendMessage(UnderstandResponse ur) {
         Answer answer = new Answer();
         answer.type = Answer.Type.TEXT;
 
+
         String textStr = "";
         Context context = ResWrapper.getInstance().getContext();
-        if (AppUtils.isPermission(context, Manifest.permission.CALL_PHONE)
+
+        if (AppUtils.isPermission(context, Manifest.permission.SEND_SMS)
                 && AppUtils.isPermission(context, Manifest.permission.READ_CONTACTS)) {
             String name = ur.semantic.getSlots("name", String.class);
             ArrayList<ContactInfo> phones = null;
@@ -88,17 +93,31 @@ public class TelephoneManager {
                 textStr = String.format(ResWrapper.getInstance().getString(
                         R.string.no_find_phone), name);
 
+
             } else if (phones.size() == 1) {
 
-                ur.service = Service.CHAT;
-                ur.operation = ChatManager.Operation.ANSWER;
+                ur.service = Service.MESSAGE;
+                ur.operation = Operation.SENDING_CHECK;
 
                 ContactInfo phone = phones.get(0);
                 textStr = String.format(ResWrapper.getInstance().getString(
-                        R.string.calling), name);
+                        R.string.sending_message), name);
 
-                if (phone != null && !StringUtils.isEmptyOrNullOrNullStr(phone.getNumber()))
-                    CallAndSmsUtils.mkCall(context, phone.getNumber());
+                String msgContent = ur.semantic.getSlots("content", String.class);
+                if (StringUtils.isEmptyOrNullOrNullStr(msgContent)) {
+                    msgContent = "";
+                }
+
+                String number = "";
+                if (phone != null) {
+                    number = phone.getNumber();
+                }
+
+                HashMap<String,String> sendingData = new HashMap<String,String>();
+                sendingData.put("number",number);
+                sendingData.put("content",msgContent);
+                ur.data.setResult(sendingData);
+
 
             } else {
 
@@ -114,7 +133,7 @@ public class TelephoneManager {
 
 
         } else {
-            textStr = context.getString(R.string.no_permission_call_phone);
+            textStr = context.getString(R.string.no_permission_send_message);
         }
 
 
@@ -123,21 +142,50 @@ public class TelephoneManager {
         ur.answer = answer;
 
         return ur;
+
     }
 
 
     public class Operation {
 
-        /**
-         * 打电话
-         */
-        public static final String CALL = "CALL";
-
 
         /**
-         * 查看通话记录
+         * VIEW,表示查看短信,缺省为 VIEW;
          */
         public static final String VIEW = "VIEW";
+
+
+        /**
+         * SYNTH,表示朗读短信。
+         */
+        public static final String SYNTH = "SYNTH";
+
+
+        /**
+         * 短信内容的类别,取值: 祝福 中秋祝福 国庆祝福 圣诞祝福 元旦祝福 春节祝福 情人节祝 福 元宵节 三八妇女节
+         * 愚人节 五一劳动节 青年节 母亲 节 五二零 六一儿童节 端午 节 父亲节 七夕 教师节 万圣 节 感恩节 光棍节
+         */
+        public static final String QUERY = "QUERY";
+
+
+        /**
+         * 发短信
+         */
+        public static final String SEND = "SEND";
+
+
+
+        /**
+         * 发短信检查
+         */
+        public static final String SENDING_CHECK = "SENDING_CHECK";
+
+
+        /**
+         * 发送联系人、名片
+         */
+        public static final String SENDCONTACTS = "SENDCONTACTS";
+
 
     }
 

@@ -44,6 +44,10 @@
     <string name="calling">正在给%s打电话</string>
     <string name="find_some_people">找到如下相关联系人:</string>
     <string name="no_permission_call_phone">没有读取联系人或拨打电话的权限</string>
+    <string name="no_permission_send_message">没有读取联系人或发短信的权限</string>
+
+    <string name="sending_message">发送给%s短信内容如下:</string>
+
 
 
     <!-- 合成 -->

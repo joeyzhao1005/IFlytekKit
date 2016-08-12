@@ -10,7 +10,7 @@ import com.kit.utils.contact.ContactInfo;
 /**
  * Created by Zhao on 16/7/31.
  */
-public class TelephoneWarpper implements DataWarpper {
+public class ContactInfoWapper implements DataWarpper {
 
     private ContactInfo contactInfo;
 
@@ -44,10 +44,10 @@ public class TelephoneWarpper implements DataWarpper {
     }
 
 
-    public static TelephoneWarpper cast(ContactInfo contactInfo) {
-        TelephoneWarpper telephoneWarpper = new TelephoneWarpper();
-        telephoneWarpper.setContactInfo(contactInfo);
-        return telephoneWarpper;
+    public static ContactInfoWapper cast(ContactInfo contactInfo) {
+        ContactInfoWapper contactInfoWapper = new ContactInfoWapper();
+        contactInfoWapper.setContactInfo(contactInfo);
+        return contactInfoWapper;
     }
 
 }

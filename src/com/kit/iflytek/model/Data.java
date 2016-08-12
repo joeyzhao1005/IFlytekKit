@@ -1,9 +1,6 @@
 package com.kit.iflytek.model;
 
-import com.kit.utils.GsonUtils;
-
-import java.lang.reflect.Type;
-import java.util.ArrayList;
+import com.kit.utils.log.ZogUtils;
 
 /**
  * @author Zhao laozhao1005@gmail.com
@@ -17,22 +14,14 @@ public class Data {
     private Object result;
 
 
-    /**
-     * 解析成list
-     *
-     * @return
-     */
-    public <T> ArrayList<T> getResult(Type typeOfT) {
-        return GsonUtils.getArrayList(GsonUtils.toJson(result), typeOfT);
-    }
-
-
-    public <T> T getResult(Class<T> clazz) {
-        return GsonUtils.getObj(GsonUtils.toJson(result), clazz);
-    }
-
-    public Object getResult() {
-        return result;
+    @SuppressWarnings("unchecked")
+    public <T> T getResult() {
+        try {
+            return (T) result;
+        } catch (Exception e) {
+            ZogUtils.showException(e);
+            return null;
+        }
     }
 
     public void setResult(Object result) {
