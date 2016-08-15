@@ -116,6 +116,8 @@ public class MessageManager {
                 HashMap<String,String> sendingData = new HashMap<String,String>();
                 sendingData.put("number",number);
                 sendingData.put("content",msgContent);
+
+                ur.data = new Data();
                 ur.data.setResult(sendingData);
 
 
@@ -125,6 +127,7 @@ public class MessageManager {
                 for (ContactInfo contactInfo : phones) {
                     contactInfoWappers.add(ContactInfoWapper.cast(contactInfo));
                 }
+
                 ur.data = new Data();
                 ur.data.setResult(contactInfoWappers);
 
