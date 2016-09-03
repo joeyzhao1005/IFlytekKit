@@ -4,9 +4,6 @@ import android.text.TextUtils;
 
 import com.google.gson.Gson;
 import com.iflytek.cloud.UnderstanderResult;
-import com.kit.iflytek.assistant.AnswerManager;
-import com.kit.iflytek.enums.OperationCommon;
-import com.kit.iflytek.enums.Service;
 import com.kit.iflytek.model.Answer;
 import com.kit.iflytek.model.UnderstandResponse;
 import com.kit.utils.log.ZogUtils;
@@ -65,42 +62,7 @@ public class DoUnderstandResponse {
 
     }
 
-    public static Answer getAnAnswer(UnderstandResponse ur,
-                                     String defaultAnswerStr) {
 
-        Answer answer = creatAnswer("T", defaultAnswerStr);
-
-        if (ur != null && ur.operation != null) {
-            UnderstandResponse resp;
-            switch (ur.service) {
-                case Service.WEATHER:
-                    break;
-
-                case Service.APP:
-                    break;
-
-
-                case OperationCommon.ANSWER:
-                    resp = AnswerManager.getInstance().getBestOne(ur.moreResults);
-                    if (resp != null)
-                        answer = resp.answer;
-                    break;
-
-                case OperationCommon.QUERY:
-                    resp = AnswerManager.getInstance().getBestOne(ur.moreResults);
-                    break;
-
-
-                default:
-                    answer = ur.answer;
-
-
-            }
-
-
-        }
-        return answer;
-    }
 
     public static Answer creatAnswer(String type, String str) {
 

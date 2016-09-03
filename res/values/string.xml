@@ -18,37 +18,6 @@
     <string name="pref_title_iat_show">显示听写界面</string>
 
 
-    <string name="no_find_app">没有找到应用:%s</string>
-    <string name="find_apps">找到如下应用:</string>
-
-    <string name="app_launching">正在启动应用:%s</string>
-    <string name="app_unintalling">请确认卸载应用:%s</string>
-    <string name="app_searching">正在搜寻应用:%s</string>
-    <string name="app_killed">已关闭应用:%s</string>
-    <string name="app_kill_need_premission">需要Root权限才能关闭应用%s</string>
-
-
-    <string name="no_say_where">没有言明你所在的城市,正在定位…</string>
-    <string name="locate_where">定位到:%s</string>
-    <string name="search_music">搜索到如下音乐:</string>
-    <string name="search_no_music_local">没有在本地找到音乐%s,是否打开音乐播放器?</string>
-    <string name="search_no_music">没有找到音乐</string>
-    <string name="playing_music">即将播放音乐:%s</string>
-
-
-    <string name="commond_open_music_player">打开音乐播放器</string>
-    <string name="commond_open_music_player_keywords">音乐/播放器</string>
-
-
-    <string name="no_find_phone">没有找到%s的电话</string>
-    <string name="calling">正在给%s打电话</string>
-    <string name="find_some_people">找到如下相关联系人:</string>
-    <string name="no_permission_call_phone">没有读取联系人或拨打电话的权限</string>
-    <string name="no_permission_send_message">没有读取联系人或发短信的权限</string>
-
-    <string name="sending_message">发送给%s短信内容如下:</string>
-
-
 
     <!-- 合成 -->
     <string-array name="engine_entries">

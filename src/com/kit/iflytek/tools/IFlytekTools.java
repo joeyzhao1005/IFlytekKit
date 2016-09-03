@@ -55,11 +55,6 @@ public class IFlytekTools {
 
     private TextUnderstander mTextUnderstander;
 
-
-//    public static Notification mNotification;
-
-//    public static NotificationManager mNM;
-
     /**
      * 语音听写对象
      */
@@ -233,15 +228,14 @@ public class IFlytekTools {
      * @param synthesizerListener
      */
 
-    public void speak(String text, SynthesizerListener synthesizerListener) {
+    public void doSpeak(String text, SynthesizerListener synthesizerListener) {
         mTts.startSpeaking(text, synthesizerListener);
     }
 
 
-    public void stopSpeaking(){
+    public void stopSpeaking() {
         mTts.stopSpeaking();
     }
-
 
 
     public void initVoicer(Context context, int witch) {
@@ -258,7 +252,7 @@ public class IFlytekTools {
         try {
             voicer = cloudVoicersValue[witch];
         } catch (Exception e) {
-            voicer = mTtsSettingsSharedPreferences.getString("voicer_preference", "vinn");
+            voicer = mTtsSettingsSharedPreferences.getString("voicer_preference", "vixq");
             // LogUtils.showException(e);
         }
 
@@ -352,6 +346,8 @@ public class IFlytekTools {
         };
 
         mIat = SpeechRecognizer.createRecognizer(context, mInitListener);
+        mIat.setParameter(SpeechConstant.ASR_PTT, "0");
+
     }
 
     public void initTextUnderstander(Context context) {
@@ -374,6 +370,8 @@ public class IFlytekTools {
     }
 
     /**
+     * 初始化语意理解器
+     *
      * @param context
      */
     public void initSpeechUnderstander(Context context) {
@@ -413,12 +411,12 @@ public class IFlytekTools {
         setUnderstandParam();
         if (mSpeechUnderstander.isUnderstanding()) {// 开始前检查状态
             mSpeechUnderstander.stopUnderstanding();
-            ToastUtils.mkToast(context, "停止录音", 1500);
+            ToastUtils.mkToast("停止录音", 1500);
         } else {
             int ret = mSpeechUnderstander
                     .startUnderstanding(mRecognizerListener);
             if (ret != 0) {
-                ToastUtils.mkToast(context, "语义理解失败,错误码:" + ret, 1500);
+                ToastUtils.mkToast("语义理解失败,错误码:" + ret, 1500);
             }
         }
     }
@@ -439,7 +437,7 @@ public class IFlytekTools {
 //                // }
 //            } else {
 //                LogUtils.i(getClass(), "understander result:null");
-//                // ToastUtils.mkToast(context,"识别结果不正确。");
+//                // ToastUtils.mkToast("识别结果不正确。");
 //            }
 //
 //        }

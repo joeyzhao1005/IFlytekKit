@@ -277,6 +277,18 @@ public class Service {
 
 
     /**
+     * 快递
+     */
+    public static final String EXPRESS = "express";
+
+
+    /**
+     * 公交车
+     */
+    public static final String BUS = "bus";
+
+
+    /**
      * 情景,连问
      */
     public static final String SITUATION = "situation";

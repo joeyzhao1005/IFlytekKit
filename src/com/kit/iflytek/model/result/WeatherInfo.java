@@ -1,9 +1,9 @@
-package com.kit.iflytek.model;
+package com.kit.iflytek.model.result;
 
 /**
  * Created by Zhao on 16/7/19.
  */
-public class IFlytekResult {
+public class WeatherInfo {
 
 
 
@@ -18,6 +18,7 @@ public class IFlytekResult {
     private String weather;
     private String tempRange;
     private String province;
+    private String pm25;
 
 
     public String getAirQuality() {
@@ -106,5 +107,13 @@ public class IFlytekResult {
 
     public void setProvince(String province) {
         this.province = province;
+    }
+
+    public String getPm25() {
+        return pm25;
+    }
+
+    public void setPm25(String pm25) {
+        this.pm25 = pm25;
     }
 }
