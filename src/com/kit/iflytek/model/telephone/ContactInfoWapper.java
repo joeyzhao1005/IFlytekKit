@@ -40,7 +40,7 @@ public class ContactInfoWapper implements DataWarpper {
         if (contactInfo.getAvatar() == null)
             return null;
 
-        return new BitmapDrawable(ResWrapper.getInstance().getResouce(), contactInfo.getAvatar());
+        return new BitmapDrawable(ResWrapper.getInstance().getResources(), contactInfo.getAvatar());
     }
 
 

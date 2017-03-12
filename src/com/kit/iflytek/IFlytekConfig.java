@@ -28,7 +28,7 @@ public class IFlytekConfig implements AppConfig.IAppConfig {
     }
 
     @Override
-    public String getImageDir() {
+    public String getCacheImageDir() {
         return null;
     }
 
