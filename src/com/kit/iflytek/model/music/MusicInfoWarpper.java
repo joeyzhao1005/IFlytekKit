@@ -38,7 +38,7 @@ public class MusicInfoWarpper implements DataWarpper {
 
     @Override
     public Drawable getIcon() {
-        if (!StringUtils.isEmptyOrNullOrNullStr((musicInfo.getUrl()))) {
+        if (!StringUtils.isEmptyOrNullStr((musicInfo.getUrl()))) {
             return MediaUtils.createAlbumArt(musicInfo.getUrl());
         } else {
             return ResWrapper.getInstance().getDrawable(android.R.drawable.ic_media_play);
