@@ -411,7 +411,7 @@ public class IFlytekTools {
         setUnderstandParam();
         if (mSpeechUnderstander.isUnderstanding()) {// 开始前检查状态
             mSpeechUnderstander.stopUnderstanding();
-            ToastUtils.mkToast("停止录音", 1500);
+//            ToastUtils.mkToast("停止录音", 1500);
         } else {
             int ret = mSpeechUnderstander
                     .startUnderstanding(mRecognizerListener);
