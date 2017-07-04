@@ -63,7 +63,6 @@ public class DoUnderstandResponse {
     }
 
 
-
     public static Answer creatAnswer(String type, String str) {
 
         Answer answer = new Answer();
