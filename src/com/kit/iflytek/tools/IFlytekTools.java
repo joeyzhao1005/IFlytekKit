@@ -45,7 +45,7 @@ public class IFlytekTools {
 
 
     private SharedPreferences mTtsSettingsSharedPreferences;
-    private SharedPreferences mIatSettingsSharedPreferences;
+    protected SharedPreferences mIatSettingsSharedPreferences;
 
     private SharedPreferences mUnderstanderSettingsSharedPreferences;
 
@@ -58,7 +58,7 @@ public class IFlytekTools {
     /**
      * 语音听写对象
      */
-    private SpeechRecognizer mIat;
+    protected SpeechRecognizer asr;
 
     private ContactManager.ContactListener mContactListener;
 
@@ -127,13 +127,13 @@ public class IFlytekTools {
 
         new Thread() {
             public void run() {
-                uploadUserWords(context, mIat, lexiconListener);
+                uploadUserWords(context, asr, lexiconListener);
             }
         }.start();
     }
 
     public SpeechRecognizer getIat() {
-        return mIat;
+        return asr;
     }
 
     public SpeechSynthesizer getTts() {
@@ -288,10 +288,10 @@ public class IFlytekTools {
                 // 注：实际应用中除第一次上传之外，之后应该通过changeFlag判断是否需要上传，否则会造成不必要的流量.
                 if (changeFlag) {
                     // 指定引擎类型
-                    mIat.setParameter(SpeechConstant.ENGINE_TYPE,
+                    asr.setParameter(SpeechConstant.ENGINE_TYPE,
                             SpeechConstant.TYPE_CLOUD);
-                    mIat.setParameter(SpeechConstant.TEXT_ENCODING, "utf-8");
-                    int ret = mIat.updateLexicon("contact", contactInfos,
+                    asr.setParameter(SpeechConstant.TEXT_ENCODING, "utf-8");
+                    int ret = asr.updateLexicon("contact", contactInfos,
                             lexiconListener);
                     if (ret != ErrorCode.SUCCESS)
                         ZogUtils.i("上传联系人失败：" + ret);
@@ -345,8 +345,8 @@ public class IFlytekTools {
             }
         };
 
-        mIat = SpeechRecognizer.createRecognizer(context, mInitListener);
-        mIat.setParameter(SpeechConstant.ASR_PTT, "0");
+        asr = SpeechRecognizer.createRecognizer(context, mInitListener);
+        asr.setParameter(SpeechConstant.ASR_PTT, "0");
 
     }
 
@@ -394,11 +394,13 @@ public class IFlytekTools {
     }
 
 
+
+
     public void listen2Text(Context context,
                             RecognizerListener recognizerListener) {
-        setIatParam(context);
+        setAsrParam(context);
         // 不显示听写对话框
-        int ret = mIat.startListening(recognizerListener);
+        int ret = asr.startListening(recognizerListener);
         if (ret != ErrorCode.SUCCESS) {
             ZogUtils.i("听写失败,错误码：" + ret);
         } else {
@@ -457,27 +459,30 @@ public class IFlytekTools {
      * @return
      */
     @SuppressLint("SdCardPath")
-    public void setIatParam(Context context) {
+    public void setAsrParam(Context context) {
 
 
         String lag = mIatSettingsSharedPreferences.getString("iat_language_preference", "mandarin");
         if (lag.equals("en_us")) {
             // 设置语言
-            mIat.setParameter(SpeechConstant.LANGUAGE, "en_us");
+            asr.setParameter(SpeechConstant.LANGUAGE, "en_us");
         } else {
             // 设置语言
-            mIat.setParameter(SpeechConstant.LANGUAGE, "zh_cn");
+            asr.setParameter(SpeechConstant.LANGUAGE, "zh_cn");
             // 设置语言区域
-            mIat.setParameter(SpeechConstant.ACCENT, lag);
+            asr.setParameter(SpeechConstant.ACCENT, lag);
         }
+
+        asr.setParameter( SpeechConstant.ENGINE_MODE, null );
+
         // 设置语音前端点
-        mIat.setParameter(SpeechConstant.VAD_BOS, mIatSettingsSharedPreferences.getString("iat_vadbos_preference", "4000"));
+        asr.setParameter(SpeechConstant.VAD_BOS, mIatSettingsSharedPreferences.getString("iat_vadbos_preference", "4000"));
         // 设置语音后端点
-        mIat.setParameter(SpeechConstant.VAD_EOS, mIatSettingsSharedPreferences.getString("iat_vadeos_preference", "1000"));
+        asr.setParameter(SpeechConstant.VAD_EOS, mIatSettingsSharedPreferences.getString("iat_vadeos_preference", "1000"));
         // 设置标点符号
-        mIat.setParameter(SpeechConstant.ASR_PTT, mIatSettingsSharedPreferences.getString("iat_punc_preference", "1"));
+        asr.setParameter(SpeechConstant.ASR_PTT, mIatSettingsSharedPreferences.getString("iat_punc_preference", "1"));
         // 设置音频保存路径
-        mIat.setParameter(SpeechConstant.ASR_AUDIO_PATH, AppConfig.getAppConfig().getCacheDir() + "iflytek/wavaudio.pcm");
+        asr.setParameter(SpeechConstant.ASR_AUDIO_PATH, AppConfig.getAppConfig().getCacheDir() + "iflytek/wavaudio.pcm");
     }
 
 
