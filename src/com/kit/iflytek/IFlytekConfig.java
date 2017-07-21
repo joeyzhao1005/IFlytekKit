@@ -9,12 +9,6 @@ import com.kit.config.AppConfig;
  */
 public class IFlytekConfig implements AppConfig.IAppConfig {
 
-
-    @Override
-    public Bitmap.Config getPicLevel() {
-        return Bitmap.Config.RGB_565;
-    }
-
     @Override
     public Bitmap.Config getPicLevel() {
         return Bitmap.Config.ARGB_4444;
