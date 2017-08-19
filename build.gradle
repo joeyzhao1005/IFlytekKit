@@ -1,7 +1,9 @@
 apply plugin: 'com.android.library'
 
 dependencies {
-    compile fileTree(dir: 'libs', include: '*.jar')
+    compileOnly fileTree(dir: 'libs', include: '*.jar')
+    implementation 'com.google.code.gson:gson:2.8.0'
+
     implementation project(':ZUtils')
 }
 
@@ -11,7 +13,7 @@ android {
 
     defaultConfig {
         minSdkVersion 14
-        targetSdkVersion 25
+        targetSdkVersion 26
     }
 
     sourceSets {
