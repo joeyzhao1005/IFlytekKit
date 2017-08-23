@@ -1,5 +1,6 @@
 package com.kit.iflytek.tools;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
@@ -30,11 +31,13 @@ import com.kit.iflytek.speech.setting.IatSettings;
 import com.kit.iflytek.speech.setting.TtsSettings;
 import com.kit.iflytek.speech.setting.UnderstanderSettings;
 import com.kit.iflytek.speech.util.FucUtil;
+import com.kit.utils.AppUtils;
 import com.kit.utils.ResWrapper;
 import com.kit.utils.ToastUtils;
 import com.kit.utils.log.ZogUtils;
 
 import java.io.UnsupportedEncodingException;
+import java.security.Permission;
 
 
 public class IFlytekTools {
@@ -218,9 +221,11 @@ public class IFlytekTools {
     }
 
     public void uploadContact(Context context) {
-        ContactManager mgr = ContactManager.createManager(context,
-                mContactListener);
-        mgr.asyncQueryAllContactsName();
+        if (AppUtils.isPermission(Manifest.permission.READ_CONTACTS)) {
+            ContactManager mgr = ContactManager.createManager(context,
+                    mContactListener);
+            mgr.asyncQueryAllContactsName();
+        }
     }
 
     /**
@@ -394,8 +399,6 @@ public class IFlytekTools {
     }
 
 
-
-
     public void listen2Text(Context context,
                             RecognizerListener recognizerListener) {
         setAsrParam(context);
@@ -473,7 +476,7 @@ public class IFlytekTools {
             asr.setParameter(SpeechConstant.ACCENT, lag);
         }
 
-        asr.setParameter( SpeechConstant.ENGINE_MODE, null );
+        asr.setParameter(SpeechConstant.ENGINE_MODE, null);
 
         // 设置语音前端点
         asr.setParameter(SpeechConstant.VAD_BOS, mIatSettingsSharedPreferences.getString("iat_vadbos_preference", "4000"));
