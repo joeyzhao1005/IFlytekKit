@@ -48,8 +48,8 @@ public class DoUnderstandResponse {
     public static UnderstandResponse getLocalUnderstandResponse(String commondStr, String answerStr) {
 
         UnderstandResponse obj = new UnderstandResponse();
-        obj.answer = creatAnswer("T", answerStr);
-        obj.text = commondStr;
+        obj.setAnswer(creatAnswer("T", answerStr));
+        obj.setText(commondStr);
 
 //            Gson gson = new Gson();
 //

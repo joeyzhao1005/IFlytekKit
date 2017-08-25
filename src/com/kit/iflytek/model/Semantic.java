@@ -17,8 +17,14 @@ import java.util.Map;
  * @date 2014-7-17 下午3:21:44
  */
 public class Semantic {
-    private Object slots;
 
+    public String getIntent() {
+        return intent;
+    }
+
+    public void setIntent(String intent) {
+        this.intent = intent;
+    }
 
     public Object getSlots() {
         return slots;
@@ -77,6 +83,11 @@ public class Semantic {
         }
 
     }
+
+    private Object slots;
+
+    private String intent;
+
 
 
 //    public <T> Map<?, T> getSlotsMap(String key, Type typeOfT) {

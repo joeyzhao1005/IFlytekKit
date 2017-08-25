@@ -69,11 +69,11 @@ public class IFlytekTools {
 
 //    public static UnderstandResponse getCommondUnderstandResponse(String commondStr) {
 //        UnderstandResponse ur = new UnderstandResponse();
-//        ur.text = commondStr;
+//        ur.setText( commondStr;
 //
 //        UnderstandResponse understandResponse = WithUTools.getCommandUnderstandResponse(ur);
 //        if (understandResponse != null)
-//            ur.answer = understandResponse.answer;
+//            ur.setAnswer(understandResponse.answer;
 //
 //
 ////        ur = DoUnderstandResponse.getLocalUnderstandResponse(commondStr, interceptCommandAnswer.text);
