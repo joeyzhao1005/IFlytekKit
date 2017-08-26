@@ -128,11 +128,11 @@ public class IFlytekTools {
             }
         }.start();
 
-        new Thread() {
-            public void run() {
-                uploadUserWords(context, asr, lexiconListener);
-            }
-        }.start();
+//        new Thread() {
+//            public void run() {
+//                uploadUserWords(context, asr, lexiconListener);
+//            }
+//        }.start();
     }
 
     public SpeechRecognizer getIat() {
