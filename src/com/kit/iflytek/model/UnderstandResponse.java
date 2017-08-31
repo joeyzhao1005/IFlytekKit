@@ -1,6 +1,10 @@
 package com.kit.iflytek.model;
 
+import com.google.gson.reflect.TypeToken;
 import com.kit.utils.ArrayUtils;
+import com.kit.utils.GsonUtils;
+import com.kit.utils.ListUtils;
+import com.kit.utils.StringUtils;
 
 import java.util.ArrayList;
 
@@ -95,20 +99,44 @@ public class UnderstandResponse {
     }
 
     public Semantic getSemanticOne() {
-        return ArrayUtils.isNullOrEmpty(semantic) ? null : semantic[0];
+        if (semanticArrayList == null) {
+            getSemantic();
+        }
+
+        if (ListUtils.isNullOrEmpty(semanticArrayList)) {
+            return null;
+        }
+        return semanticArrayList.get(0);
     }
 
-    public Semantic[] getSemantic() {
-        return semantic;
+    private ArrayList<Semantic> getSemantic() {
+
+        if (semantic==null)
+            return null;
+        String ss = GsonUtils.toJson(semantic);
+        if (ss.startsWith("[")) {
+
+//    ArrayList<Semantic> appIconInfos = GsonUtils.getArrayList(semantic, new TypeToken<ArrayList<Semantic>>() {
+//    }.getType());
+
+            semanticArrayList = GsonUtils.getArrayList(ss);
+        } else if (ss.startsWith("{")) {
+            Semantic s = GsonUtils.getObj(ss, Semantic.class);
+            semanticArrayList = new ArrayList<>();
+            semanticArrayList.add(s);
+        }
+
+        return semanticArrayList;
     }
 
-    public void setSemantic(Semantic[] semantic) {
-        this.semantic = semantic;
-    }
+    ArrayList<Semantic> semanticArrayList = null;
 
     public void setSemanticOne(Semantic semanticOne) {
-        semantic = new Semantic[1];
-        semantic[0] = semanticOne;
+        if (semanticOne == null)
+            return;
+        ArrayList<Semantic> semanticArrayList = new ArrayList<>();
+
+        semanticArrayList.add(semanticOne);
     }
 
 
@@ -166,7 +194,7 @@ public class UnderstandResponse {
      * @IsMust false
      * @Describe 语义结构化表示, 各服务自定义
      */
-    private Semantic[] semantic;
+    private Object semantic;
 
     /**
      * @IsMust false

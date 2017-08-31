@@ -29,7 +29,11 @@ public class DoUnderstandResponse {
 
             Gson gson = new Gson();
 
-            obj = gson.fromJson(res, UnderstandResponse.class);
+            try {
+                obj = gson.fromJson(res, UnderstandResponse.class);
+            }catch (Exception e){
+                ZogUtils.showException(e);
+            }
         }
 
 
