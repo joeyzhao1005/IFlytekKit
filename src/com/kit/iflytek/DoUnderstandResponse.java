@@ -31,7 +31,7 @@ public class DoUnderstandResponse {
 
             try {
                 obj = gson.fromJson(res, UnderstandResponse.class);
-            }catch (Exception e){
+            } catch (Exception e) {
                 ZogUtils.showException(e);
             }
         }
@@ -71,8 +71,8 @@ public class DoUnderstandResponse {
 
         Answer answer = new Answer();
 
-        answer.type = type;
-        answer.text = str;
+        answer.setType(type);
+        answer.setText(str);
 
         return answer;
     }
