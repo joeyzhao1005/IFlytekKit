@@ -63,9 +63,6 @@ public class IFlytekTools {
      */
     protected SpeechRecognizer asr;
 
-    private ContactManager.ContactListener mContactListener;
-
-    private LexiconListener lexiconListener;
 
 //    public static UnderstandResponse getCommondUnderstandResponse(String commondStr) {
 //        UnderstandResponse ur = new UnderstandResponse();
@@ -116,17 +113,17 @@ public class IFlytekTools {
         initListener(context);
 
         //初始化联系人名字和关键字
-        initContactAndUserWordsListener(context);
+        initUserWordsListener();
 
         //初始化语音合成人
         initVoicer(context, -1);
 
 
-        new Thread() {
-            public void run() {
-                uploadContact(context);
-            }
-        }.start();
+//        new Thread() {
+//            public void run() {
+//                uploadContact(context);
+//            }
+//        }.start();
 
 //        new Thread() {
 //            public void run() {
@@ -220,7 +217,48 @@ public class IFlytekTools {
             ZogUtils.i("上传热词失败,错误码：" + ret);
     }
 
+    /**
+     * 上传联系人，以精准的语音识别联系人
+     *
+     * @param context
+     */
     public void uploadContact(Context context) {
+        /**
+         * 获取联系人监听器。
+         */
+        ContactManager.ContactListener mContactListener = new ContactManager.ContactListener() {
+            @Override
+            public void onContactQueryFinish(String contactInfos,
+                                             boolean changeFlag) {
+                // 注：实际应用中除第一次上传之外，之后应该通过changeFlag判断是否需要上传，否则会造成不必要的流量.
+                if (changeFlag) {
+                    // 指定引擎类型
+                    asr.setParameter(SpeechConstant.ENGINE_TYPE,
+                            SpeechConstant.TYPE_CLOUD);
+                    asr.setParameter(SpeechConstant.TEXT_ENCODING, "utf-8");
+
+                    LexiconListener lexiconListener = new LexiconListener() {
+
+                        @Override
+                        public void onLexiconUpdated(String lexiconId, SpeechError error) {
+//                            if (error != null) {
+//                                ZogUtils.i(error.toString());
+//                            } else {
+//                                ZogUtils.i(
+//                                        context.getString(R.string.text_upload_success));
+//                            }
+                        }
+                    };
+
+                    int ret = asr.updateLexicon("contact", contactInfos,
+                            lexiconListener);
+//                    if (ret != ErrorCode.SUCCESS)
+//                        ZogUtils.e("上传联系人失败：" + ret);
+                }
+            }
+
+        };
+
         if (AppUtils.isPermission(Manifest.permission.READ_CONTACTS)) {
             ContactManager mgr = ContactManager.createManager(context,
                     mContactListener);
@@ -266,44 +304,9 @@ public class IFlytekTools {
     }
 
 
-    public void initContactAndUserWordsListener(final Context context) {
-        /**
-         * 上传联系人/词表监听器。
-         */
-        lexiconListener = new LexiconListener() {
+    public void initUserWordsListener() {
+        final Context context = ResWrapper.getInstance().getApplicationContext();
 
-            @Override
-            public void onLexiconUpdated(String lexiconId, SpeechError error) {
-                if (error != null) {
-                    ZogUtils.i(error.toString());
-                } else {
-                    ZogUtils.i(
-                            context.getString(R.string.text_upload_success));
-                }
-            }
-        };
-
-        /**
-         * 获取联系人监听器。
-         */
-        mContactListener = new ContactManager.ContactListener() {
-            @Override
-            public void onContactQueryFinish(String contactInfos,
-                                             boolean changeFlag) {
-                // 注：实际应用中除第一次上传之外，之后应该通过changeFlag判断是否需要上传，否则会造成不必要的流量.
-                if (changeFlag) {
-                    // 指定引擎类型
-                    asr.setParameter(SpeechConstant.ENGINE_TYPE,
-                            SpeechConstant.TYPE_CLOUD);
-                    asr.setParameter(SpeechConstant.TEXT_ENCODING, "utf-8");
-                    int ret = asr.updateLexicon("contact", contactInfos,
-                            lexiconListener);
-                    if (ret != ErrorCode.SUCCESS)
-                        ZogUtils.i("上传联系人失败：" + ret);
-                }
-            }
-
-        };
 
     }
 
