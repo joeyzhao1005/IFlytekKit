@@ -4,6 +4,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 
 import com.kit.iflytek.model.DataWarpper;
+import com.kit.utils.ListUtils;
 import com.kit.utils.ResWrapper;
 import com.kit.utils.contact.ContactInfo;
 
@@ -31,7 +32,8 @@ public class ContactInfoWapper implements DataWarpper {
 
     @Override
     public String getContent() {
-        return contactInfo.getNumber();
+        return ListUtils.isNullOrEmpty(contactInfo.getNumber()) && !ListUtils.isNullOrEmpty(contactInfo.getNumber())
+                ? "" : contactInfo.getNumber().get(0);
     }
 
 
