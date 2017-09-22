@@ -139,6 +139,13 @@ public class UnderstandResponse {
         semanticArrayList.add(semanticOne);
     }
 
+    public long getTime() {
+        return time;
+    }
+
+    public void setTime(long time) {
+        this.time = time;
+    }
 
     @Override
     public UnderstandResponse clone() {
@@ -149,6 +156,7 @@ public class UnderstandResponse {
         understandResponse.setData(this.data);
         understandResponse.setAnswer(this.answer);
         understandResponse.semantic = this.semantic;
+        understandResponse.setTime(this.time);
         understandResponse.setRc(this.rc);
         return understandResponse;
     }
@@ -225,4 +233,11 @@ public class UnderstandResponse {
      * @Describe 在存在多个候选结果时, 用于提供更多的结果描述
      */
     private UnderstandResponse[] moreResults;
+
+
+    /**
+     * 获取到response的时间
+     */
+    private long time;
+
 }
