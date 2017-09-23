@@ -106,12 +106,12 @@ public class UnderstandResponse {
         if (ListUtils.isNullOrEmpty(semanticArrayList)) {
             return null;
         }
-        return semanticArrayList.get(0);
+        return GsonUtils.getObj(GsonUtils.toJson(semanticArrayList.get(0)), Semantic.class);
     }
 
     private ArrayList<Semantic> getSemantic() {
 
-        if (semantic==null)
+        if (semantic == null)
             return null;
         String ss = GsonUtils.toJson(semantic);
         if (ss.startsWith("[")) {
