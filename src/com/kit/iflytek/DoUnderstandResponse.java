@@ -6,6 +6,7 @@ import com.google.gson.Gson;
 import com.iflytek.cloud.UnderstanderResult;
 import com.kit.iflytek.model.Answer;
 import com.kit.iflytek.model.UnderstandResponse;
+import com.kit.utils.StringUtils;
 import com.kit.utils.log.ZogUtils;
 
 public class DoUnderstandResponse {
@@ -23,10 +24,7 @@ public class DoUnderstandResponse {
         String res = result.getResultString();
 
         UnderstandResponse obj = null;
-        if (res != null && !TextUtils.isEmpty(res)) {
-
-            ZogUtils.i(res);
-
+        if (!StringUtils.isEmptyOrNullStr(res)) {
             Gson gson = new Gson();
 
             try {
