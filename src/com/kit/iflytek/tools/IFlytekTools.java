@@ -355,7 +355,6 @@ public class IFlytekTools {
 
         asr = SpeechRecognizer.createRecognizer(context, mInitListener);
         asr.setParameter(SpeechConstant.ASR_PTT, "0");
-
     }
 
     public void initTextUnderstander(Context context) {
