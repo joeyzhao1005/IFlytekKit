@@ -1,14 +1,14 @@
 apply plugin: 'com.android.library'
 
 dependencies {
-    compileOnly fileTree(dir: 'libs', include: '*.jar')
+//    implementation fileTree(dir: 'libs', include: '*.jar')
+    implementation fileTree(include: ['*.jar'], dir: '../libs_iflytek')
     implementation 'com.google.code.gson:gson:2.8.0'
-
     implementation project(':ZUtils')
 }
 
 android {
-    compileSdkVersion 26
+    compileSdkVersion 27
     buildToolsVersion "26.0.2"
 
     defaultConfig {
