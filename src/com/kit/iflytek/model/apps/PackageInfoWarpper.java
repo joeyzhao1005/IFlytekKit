@@ -26,7 +26,7 @@ public class PackageInfoWarpper implements DataWarpper {
 
     @Override
     public String getTitle() {
-        PackageManager pManager = ResWrapper.getInstance().getContext().getPackageManager();
+        PackageManager pManager = ResWrapper.getInstance().getApplicationContext().getPackageManager();
         String appname = packageInfo.applicationInfo.loadLabel(pManager).toString();
         return appname;
     }
@@ -40,7 +40,7 @@ public class PackageInfoWarpper implements DataWarpper {
 
     @Override
     public Drawable getIcon() {
-        Context context = ResWrapper.getInstance().getContext();
+        Context context = ResWrapper.getInstance().getApplicationContext();
         PackageManager pManager = context.getPackageManager();
         Drawable drawable = packageInfo.applicationInfo.loadIcon(pManager);
         return drawable;

@@ -37,7 +37,6 @@ import com.kit.utils.ToastUtils;
 import com.kit.utils.log.ZogUtils;
 
 import java.io.UnsupportedEncodingException;
-import java.security.Permission;
 
 
 public class IFlytekTools {
@@ -89,7 +88,7 @@ public class IFlytekTools {
     }
 
     public IFlytekTools() {
-        final Context context = ResWrapper.getInstance().getContext();
+        final Context context = ResWrapper.getInstance().getApplicationContext();
 
         mUnderstanderSettingsSharedPreferences = context.getSharedPreferences(
                 UnderstanderSettings.PREFER_NAME, Context.MODE_PRIVATE);
