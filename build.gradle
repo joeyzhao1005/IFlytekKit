@@ -1,10 +1,12 @@
 apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
 
 dependencies {
 //    implementation fileTree(dir: 'libs', include: '*.jar')
     implementation fileTree(include: ['*.jar'], dir: '../libs_iflytek')
     implementation 'com.google.code.gson:gson:2.8.0'
     implementation project(':ZUtils')
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 }
 
 android {
@@ -14,6 +16,11 @@ android {
     defaultConfig {
         minSdkVersion 14
         targetSdkVersion 26
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 
     sourceSets {
@@ -42,4 +49,7 @@ android {
         debug.setRoot('build-types/debug')
         release.setRoot('build-types/release')
     }
+}
+repositories {
+    mavenCentral()
 }
