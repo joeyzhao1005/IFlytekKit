@@ -34,7 +34,7 @@ import com.kit.iflytek.speech.util.FucUtil;
 import com.kit.utils.AppUtils;
 import com.kit.utils.ResWrapper;
 import com.kit.utils.ToastUtils;
-import com.kit.utils.log.ZogUtils;
+import com.kit.utils.log.Zog;
 
 import java.io.UnsupportedEncodingException;
 
@@ -173,14 +173,14 @@ public class IFlytekTools {
             @Override
             public void onCompleted(SpeechError error) {
                 if (error != null) {
-                    ZogUtils.i(error.toString());
+                    Zog.i(error.toString());
                 } else if (TextUtils.isEmpty(mDownloadResult)) {
-                    ZogUtils.i(context.getString(R.string.text_userword_empty));
+                    Zog.i(context.getString(R.string.text_userword_empty));
                 } else {
 
                     UserWords userwords = new UserWords(mDownloadResult.toString());
                     if (userwords == null || userwords.getKeys() == null) {
-                        ZogUtils.i(context.getString(R.string.text_userword_empty));
+                        Zog.i(context.getString(R.string.text_userword_empty));
                         return;
                     }
                     for (String key : userwords.getKeys()) {
@@ -190,7 +190,7 @@ public class IFlytekTools {
                         }
                         mResultText += ("\n");
                     }
-                    ZogUtils.i(context.getString(R.string.text_download_success));
+                    Zog.i(context.getString(R.string.text_download_success));
                 }
             }
 
@@ -213,7 +213,7 @@ public class IFlytekTools {
         mIat.setParameter(SpeechConstant.TEXT_ENCODING, CharsetName.UTF_8);
         int ret = mIat.updateLexicon("userword", contents, lexiconListener);
         if (ret != ErrorCode.SUCCESS)
-            ZogUtils.i("上传热词失败,错误码：" + ret);
+            Zog.i("上传热词失败,错误码：" + ret);
     }
 
     /**
@@ -241,9 +241,9 @@ public class IFlytekTools {
                         @Override
                         public void onLexiconUpdated(String lexiconId, SpeechError error) {
 //                            if (error != null) {
-//                                ZogUtils.i(error.toString());
+//                                Zog.i(error.toString());
 //                            } else {
-//                                ZogUtils.i(
+//                                Zog.i(
 //                                        context.getString(R.string.text_upload_success));
 //                            }
                         }
@@ -252,7 +252,7 @@ public class IFlytekTools {
                     int ret = asr.updateLexicon("contact", contactInfos,
                             lexiconListener);
 //                    if (ret != ErrorCode.SUCCESS)
-//                        ZogUtils.e("上传联系人失败：" + ret);
+//                        Zog.e("上传联系人失败：" + ret);
                 }
             }
 
@@ -317,7 +317,7 @@ public class IFlytekTools {
         InitListener mTtsInitListener = new InitListener() {
             @Override
             public void onInit(int code) {
-                ZogUtils.i("InitListener tts init() code = "
+                Zog.i("InitListener tts init() code = "
                         + code);
                 // if (code == ErrorCode.SUCCESS) {
                 // ((Button) findViewById(R.id.tts_play)).setEnabled(true);
@@ -345,7 +345,7 @@ public class IFlytekTools {
             public void onInit(int code) {
 
                 if (code == ErrorCode.SUCCESS) {
-                    ZogUtils.i(
+                    Zog.i(
                             "SpeechRecognizer init() code = " + code);
                     // findViewById(R.id.iat_recognize).setEnabled(true);
                 }
@@ -362,7 +362,7 @@ public class IFlytekTools {
 
             @Override
             public void onInit(int code) {
-                ZogUtils.i(
+                Zog.i(
                         "textUnderstanderListener init() code = " + code);
 //                 if (code == ErrorCode.SUCCESS) {
                 // findViewById(R.id.text_understander).setEnabled(true);
@@ -385,7 +385,7 @@ public class IFlytekTools {
         InitListener speechUnderstanderListener = new InitListener() {
             @Override
             public void onInit(int code) {
-                ZogUtils.i(
+                Zog.i(
                         "speechUnderstanderListener init() code = " + code);
                 // if (code == ErrorCode.SUCCESS) {
                 // findViewById(R.id.start_understander).setEnabled(true);
@@ -406,9 +406,9 @@ public class IFlytekTools {
         // 不显示听写对话框
         int ret = asr.startListening(recognizerListener);
         if (ret != ErrorCode.SUCCESS) {
-            ZogUtils.i("听写失败,错误码：" + ret);
+            Zog.i("听写失败,错误码：" + ret);
         } else {
-            ZogUtils.i(context.getString(R.string.text_begin));
+            Zog.i(context.getString(R.string.text_begin));
         }
     }
 

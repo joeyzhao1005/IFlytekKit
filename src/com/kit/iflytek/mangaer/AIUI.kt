@@ -1,11 +1,8 @@
 package com.kit.iflytek.mangaer
 
-import android.app.Activity
 import android.app.Application
 import android.content.Context
-import android.os.Bundle
 import android.os.Environment
-import android.util.Log
 import com.iflytek.aiui.AIUIAgent
 import com.iflytek.aiui.AIUIConstant
 import com.iflytek.aiui.AIUIListener
@@ -14,7 +11,7 @@ import com.iflytek.cloud.*
 import com.iflytek.cloud.util.ContactManager
 import com.kit.iflytek.speech.util.FucUtil
 import com.kit.utils.ResWrapper
-import com.kit.utils.log.ZogUtils
+import com.kit.utils.log.Zog
 import org.json.JSONObject
 import java.io.IOException
 
@@ -34,9 +31,9 @@ class AIUI private constructor() {
         fun listen() {
             val ret = mIat?.startListening(mRecognizerListener)
             if (ret != ErrorCode.SUCCESS) {
-                ZogUtils.e("听写失败,错误码：" + ret)
+                Zog.e("听写失败,错误码：" + ret)
             } else {
-                ZogUtils.i("我在听，开始说话吧")
+                Zog.i("我在听，开始说话吧")
             }
         }
 
@@ -72,15 +69,15 @@ class AIUI private constructor() {
          */
         @Synchronized
         fun uploadUserwords(context: Context, mLexiconListener: LexiconListener) {
-            ZogUtils.i("上传用户词表")
+            Zog.i("上传用户词表")
             val contents = FucUtil.readFile(context, "userwords", "utf-8")
-            ZogUtils.i(contents)
+            Zog.i(contents)
             // 指定引擎类型
             mIat?.setParameter(SpeechConstant.ENGINE_TYPE, SpeechConstant.TYPE_CLOUD)
             mIat?.setParameter(SpeechConstant.TEXT_ENCODING, "utf-8")
             val ret = mIat?.updateLexicon("userword", contents, mLexiconListener)
             if (ret != ErrorCode.SUCCESS)
-                ZogUtils.e("上传热词失败,错误码：" + ret)
+                Zog.e("上传热词失败,错误码：" + ret)
         }
 
 
@@ -119,7 +116,7 @@ class AIUI private constructor() {
 
             this.mTranslateEnable = translateEnable
             if (mTranslateEnable) {
-                ZogUtils.i("translate enable")
+                Zog.i("translate enable")
                 mIat?.setParameter(SpeechConstant.ASR_SCH, "1")
                 mIat?.setParameter(SpeechConstant.ADD_CAP, "translate")
                 mIat?.setParameter(SpeechConstant.TRS_SRC, "its")
@@ -221,7 +218,7 @@ class AIUI private constructor() {
         @Synchronized
         fun nlpStartVoice(context: Context): NLP {
 
-            ZogUtils.i("start voice nlp")
+            Zog.i("start voice nlp")
 
             if (!nlpCheckAIUIAgent(context)) {
                 return this
@@ -248,7 +245,7 @@ class AIUI private constructor() {
         @Synchronized
         fun nlpStopVoice(context: Context) {
 
-            ZogUtils.i("stop voice nlp")
+            Zog.i("stop voice nlp")
 
             if (!nlpCheckAIUIAgent(context)) {
                 return
@@ -283,11 +280,11 @@ class AIUI private constructor() {
                 params = joAiuiLexicon.toString()
             } catch (e: Throwable) {
                 e.printStackTrace()
-                ZogUtils.e(e.localizedMessage)
+                Zog.e(e.localizedMessage)
             }
             //end of try-catch
 
-            ZogUtils.i(contents)
+            Zog.i(contents)
 
             val msg = AIUIMessage(AIUIConstant.CMD_UPLOAD_LEXICON, 0, 0, params, null)
             mAIUIAgent?.sendMessage(msg)
@@ -303,15 +300,15 @@ class AIUI private constructor() {
         private fun nlpCheckAIUIAgent(context: Context): Boolean {
 
             if (context == null) {
-                ZogUtils.e("activity not set")
+                Zog.e("activity not set")
             }
 
             if (mAIUIListener == null) {
-                ZogUtils.e("AIUIListener not set")
+                Zog.e("AIUIListener not set")
             }
 
             if (null == mAIUIAgent) {
-                ZogUtils.i("create aiui agent")
+                Zog.i("create aiui agent")
                 mAIUIAgent = AIUIAgent.createAgent(context, aiuiParams, mAIUIListener)
                 val startMsg = AIUIMessage(AIUIConstant.CMD_START, 0, 0, null, null)
                 mAIUIAgent!!.sendMessage(startMsg)
@@ -319,7 +316,7 @@ class AIUI private constructor() {
 
             if (null == mAIUIAgent) {
                 val strErrorTip = "创建 AIUI Agent 失败！"
-                ZogUtils.e(strErrorTip)
+                Zog.e(strErrorTip)
             }
 
             return null != mAIUIAgent

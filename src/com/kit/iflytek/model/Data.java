@@ -1,6 +1,6 @@
 package com.kit.iflytek.model;
 
-import com.kit.utils.log.ZogUtils;
+import com.kit.utils.log.Zog;
 
 /**
  * @author Zhao laozhao1005@gmail.com
@@ -19,7 +19,7 @@ public class Data {
         try {
             return (T) result;
         } catch (Exception e) {
-            ZogUtils.showException(e);
+            Zog.showException(e);
             return null;
         }
     }
