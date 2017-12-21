@@ -7,6 +7,9 @@ import com.kit.utils.RandomUtils
 import com.kit.utils.StringUtils
 
 /**
+ *
+ * AIUI 的工具类库
+ *
  * Created by Zhao on 2017/12/21.
  */
 
