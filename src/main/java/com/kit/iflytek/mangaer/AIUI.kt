@@ -90,22 +90,24 @@ class AIUI private constructor() {
             return this
         }
 
-        fun create(): IAT {
-            setParam()
+        fun create(context: Context, isTranslateEnable: Boolean?, laungue: String?): IAT {
+            mIat = SpeechRecognizer.createRecognizer(context, mInitListener)
+
+            setParam(isTranslateEnable, laungue)
             return this
         }
 
-        @Synchronized
-        private fun setParam() {
-            setParam(false, "mandarin")
-        }
 
         /**
          * 参数设置
          *
          * @return
          */
-        fun setParam(translateEnable: Boolean, lag: String) {
+        private fun setParam(translateEnable: Boolean?, lag: String?) {
+            this.mTranslateEnable = translateEnable ?: false
+
+            this.laungue = lag ?: "mandarin"
+
             // 清空参数
             mIat?.setParameter(SpeechConstant.PARAMS, null)
 
@@ -114,7 +116,6 @@ class AIUI private constructor() {
             // 设置返回结果格式
             mIat?.setParameter(SpeechConstant.RESULT_TYPE, "json")
 
-            this.mTranslateEnable = translateEnable
             if (mTranslateEnable) {
                 Zog.i("translate enable")
                 mIat?.setParameter(SpeechConstant.ASR_SCH, "1")
@@ -122,8 +123,7 @@ class AIUI private constructor() {
                 mIat?.setParameter(SpeechConstant.TRS_SRC, "its")
             }
 
-            laungue = laungue
-            if (lag == "en_us") {
+            if (laungue == "en_us") {
                 // 设置语言
                 mIat?.setParameter(SpeechConstant.LANGUAGE, "en_us")
                 mIat?.setParameter(SpeechConstant.ACCENT, null)
@@ -136,7 +136,7 @@ class AIUI private constructor() {
                 // 设置语言
                 mIat?.setParameter(SpeechConstant.LANGUAGE, "zh_cn")
                 // 设置语言区域
-                mIat?.setParameter(SpeechConstant.ACCENT, lag)
+                mIat?.setParameter(SpeechConstant.ACCENT, laungue)
 
                 if (mTranslateEnable) {
                     mIat?.setParameter(SpeechConstant.ORI_LANG, "cn")
@@ -169,7 +169,17 @@ class AIUI private constructor() {
                 mIat?.cancel()
                 mIat?.destroy()
             }
-            mIat = null;
+            mIat = null
+        }
+
+        /**
+         * 初始化监听器。
+         */
+        private val mInitListener = InitListener { code ->
+            Zog.d("SpeechRecognizer init() code = " + code)
+            if (code != ErrorCode.SUCCESS) {
+                Zog.i("初始化失败，错误码：" + code)
+            }
         }
 
         /**
@@ -375,6 +385,7 @@ class AIUI private constructor() {
     @Synchronized
     fun destory() {
         NLP_INSTANCE.destory()
+        IAT_INSTANCE.destory()
     }
 
 
