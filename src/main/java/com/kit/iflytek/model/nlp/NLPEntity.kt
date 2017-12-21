@@ -20,7 +20,7 @@ import com.kit.iflytek.model.iat.Words
  */
 
 data class NLPEntity(val rc: Int, val text: String, val vendor: String, val service: String
-                     , val semantic: ArrayList<Semantic>, val data: String, val answer: Answer
+                     , val semantic: ArrayList<Semantic>, val data: Any, val answer: Answer
                      , val dialog_stat: String, val moreResults: String, val sid: String
                      , val man_intv: String, val no_nlu_result: Int, val operation: String
                      , val status: Int, val uuid: String)

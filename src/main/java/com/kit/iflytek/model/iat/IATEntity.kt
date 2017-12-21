@@ -19,7 +19,7 @@ package com.kit.iflytek.model.iat
  * Created by Zhao on 2017/12/20.
  */
 
-data class IATEntity(val sn: Int, val ls: Boolean, val bg: Int, val ed: Boolean, val ws: ArrayList<Words>)
+data class IATEntity(val sn: Int, val ls: Boolean, val bg: Int, val ed: Int, val ws: ArrayList<Words>)
 
 data class Words(val bg: Int, val cw: ArrayList<ChineseWord>)
 

@@ -19,6 +19,82 @@ class AIUI private constructor() {
 
 
     /**
+     * 文本语意理解
+     */
+    inner class TXTUnderstander internal constructor() {
+        /**
+         * 开始听写
+         */
+        @Synchronized
+        fun understand(text: String) {
+            if (mTextUnderstander.isUnderstanding) {
+                mTextUnderstander?.cancel()
+                Zog.i("取消")
+            } else {
+                // 设置语义情景
+                //mTextUnderstander.setParameter(SpeechConstant.SCENE, "main");
+                val ret = mTextUnderstander.understandText(text, textUnderstanderListener)
+                if (ret != 0) {
+                    Zog.e("语义理解失败,错误码:" + ret)
+                }
+            }
+        }
+
+
+        /**
+         * 取消
+         */
+        @Synchronized
+        fun understandCancel() {
+            mTextUnderstander?.cancel()
+        }
+
+
+        /**
+         * 设置监听
+         */
+        @Synchronized
+        fun textUnderstanderListener(textUnderstanderListener: TextUnderstanderListener): TXTUnderstander {
+            this.textUnderstanderListener = textUnderstanderListener
+            return this
+        }
+
+        fun createTextUnderstander(context: Context): TXTUnderstander {
+            mTextUnderstander = TextUnderstander.createTextUnderstander(context, mTextUdrInitListener)
+            return this
+        }
+
+        /**
+         * 初始化监听器（文本到语义）。
+         */
+        private val mTextUdrInitListener = InitListener { code ->
+            Zog.d("textUnderstanderListener init() code = " + code)
+            if (code != ErrorCode.SUCCESS) {
+                Zog.i("初始化失败,错误码：" + code)
+            }
+        }
+
+        /**
+         * 销毁
+         */
+        @Synchronized
+        fun destory() {
+            if (null != mTextUnderstander) {
+                if (mTextUnderstander.isUnderstanding)
+                    mTextUnderstander?.cancel()
+
+                mTextUnderstander?.destroy()
+            }
+        }
+
+
+        private var textUnderstanderListener: TextUnderstanderListener? = null
+        private lateinit var mTextUnderstander: TextUnderstander
+
+    }
+
+
+    /**
      * 听写组件
      */
     inner class IAT internal constructor() {
@@ -398,9 +474,10 @@ class AIUI private constructor() {
             return INSTANCE
         }
 
+        val TXT_UNDERSTANDER_INSTANCE: TXTUnderstander by lazy { INSTANCE.TXTUnderstander() }//文本理解
 
-        val IAT_INSTANCE: IAT by lazy { INSTANCE.IAT() }
-        val NLP_INSTANCE: NLP by lazy { INSTANCE.NLP() }
+        val IAT_INSTANCE: IAT by lazy { INSTANCE.IAT() }//听写
+        val NLP_INSTANCE: NLP by lazy { INSTANCE.NLP() }//语音理解
 
         val INSTANCE: AIUI by lazy { AIUI() }
     }
