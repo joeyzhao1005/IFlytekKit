@@ -1,4 +1,4 @@
-package com.kit.iflytek.model;
+package com.kit.iflytek.entity;
 
 
 import java.util.Map;

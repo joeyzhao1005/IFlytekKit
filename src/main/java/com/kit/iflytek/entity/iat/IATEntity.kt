@@ -1,4 +1,4 @@
-package com.kit.iflytek.model.iat
+package com.kit.iflytek.entity.iat
 
 /**
  *

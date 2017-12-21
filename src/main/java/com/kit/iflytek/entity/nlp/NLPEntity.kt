@@ -1,6 +1,6 @@
-package com.kit.iflytek.model.nlp
+package com.kit.iflytek.entity.nlp
 
-import com.kit.iflytek.model.iat.Words
+import com.kit.iflytek.entity.iat.Words
 
 /**
  *

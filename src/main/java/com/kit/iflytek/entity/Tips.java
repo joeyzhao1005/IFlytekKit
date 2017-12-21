@@ -1,15 +1,15 @@
-package com.kit.iflytek.model;
+package com.kit.iflytek.entity;
 
 /**
  * 
  * @ClassName Answer
- * @Description 问答答复
+ * @Description 结果内容的关联信息,作为用户后 续交互的引导展现
  * @author Zhao laozhao1005@gmail.com
  * @date 2014-7-17 下午3:22:02
  * 
  */
 
-public class Error {
+public class Tips {
 	/**
 	 * 答复文本
 	 */

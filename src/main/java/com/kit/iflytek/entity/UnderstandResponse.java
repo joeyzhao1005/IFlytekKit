@@ -1,10 +1,7 @@
-package com.kit.iflytek.model;
+package com.kit.iflytek.entity;
 
-import com.google.gson.reflect.TypeToken;
-import com.kit.utils.ArrayUtils;
 import com.kit.utils.GsonUtils;
 import com.kit.utils.ListUtils;
-import com.kit.utils.StringUtils;
 
 import java.util.ArrayList;
 

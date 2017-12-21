@@ -1,7 +1,7 @@
 package com.kit.iflytek.mangaer
 
-import com.kit.iflytek.model.iat.IATEntity
-import com.kit.iflytek.model.nlp.NLPEntity
+import com.kit.iflytek.entity.iat.IATEntity
+import com.kit.iflytek.entity.nlp.NLPEntity
 import com.kit.utils.GsonUtils
 import com.kit.utils.RandomUtils
 import com.kit.utils.StringUtils

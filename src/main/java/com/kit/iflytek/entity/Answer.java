@@ -1,4 +1,4 @@
-package com.kit.iflytek.model;
+package com.kit.iflytek.entity;
 
 /**
  * @author Zhao laozhao1005@gmail.com

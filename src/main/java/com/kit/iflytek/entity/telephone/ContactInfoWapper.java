@@ -1,9 +1,9 @@
-package com.kit.iflytek.model.telephone;
+package com.kit.iflytek.entity.telephone;
 
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 
-import com.kit.iflytek.model.DataWarpper;
+import com.kit.iflytek.entity.DataWarpper;
 import com.kit.utils.ListUtils;
 import com.kit.utils.ResWrapper;
 import com.kit.utils.contact.ContactInfo;

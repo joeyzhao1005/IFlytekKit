@@ -1,4 +1,4 @@
-package com.kit.iflytek.model.result;
+package com.kit.iflytek.entity.result;
 
 /**
  * Created by Zhao on 16/7/19.

@@ -1,8 +1,8 @@
-package com.kit.iflytek.model.message;
+package com.kit.iflytek.entity.message;
 
 import android.graphics.drawable.Drawable;
 
-import com.kit.iflytek.model.DataWarpper;
+import com.kit.iflytek.entity.DataWarpper;
 import com.kit.utils.communication.SMSInfo;
 
 /**

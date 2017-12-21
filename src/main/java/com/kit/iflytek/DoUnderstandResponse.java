@@ -2,8 +2,8 @@ package com.kit.iflytek;
 
 import com.google.gson.Gson;
 import com.iflytek.cloud.UnderstanderResult;
-import com.kit.iflytek.model.Answer;
-import com.kit.iflytek.model.UnderstandResponse;
+import com.kit.iflytek.entity.Answer;
+import com.kit.iflytek.entity.UnderstandResponse;
 import com.kit.utils.StringUtils;
 import com.kit.utils.log.Zog;
 
