@@ -413,7 +413,7 @@ class AIUI private constructor() {
             get() {
                 var params = ""
 
-                val assetManager = ResWrapper.getInstance().resources.assets
+                val assetManager = ResWrapper.resources.assets
                 try {
                     val ins = assetManager.open("cfg/aiui_phone.cfg")
                     val buffer = ByteArray(ins.available())

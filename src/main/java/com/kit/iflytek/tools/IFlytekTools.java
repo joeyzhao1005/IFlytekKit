@@ -88,7 +88,7 @@ public class IFlytekTools {
     }
 
     public IFlytekTools() {
-        final Context context = ResWrapper.getInstance().getApplicationContext();
+        final Context context = ResWrapper.getApplicationContext();
 
         mUnderstanderSettingsSharedPreferences = context.getSharedPreferences(
                 UnderstanderSettings.PREFER_NAME, Context.MODE_PRIVATE);
@@ -304,7 +304,7 @@ public class IFlytekTools {
 
 
     public void initUserWordsListener() {
-        final Context context = ResWrapper.getInstance().getApplicationContext();
+        final Context context = ResWrapper.getApplicationContext();
 
 
     }

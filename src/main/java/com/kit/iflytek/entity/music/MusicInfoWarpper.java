@@ -47,7 +47,7 @@ public class MusicInfoWarpper implements DataWarpper {
             }
             return drawable;
         } else {
-            return ResWrapper.getInstance().getDrawable(android.R.drawable.ic_media_play);
+            return ResWrapper.getDrawable(android.R.drawable.ic_media_play);
         }
     }
 

@@ -37,7 +37,7 @@
 //
 //        //1.加载唤醒词资源，resPath为唤醒资源路径
 //        StringBuffer param = new StringBuffer();
-//        String resPath = ResourceUtil.generateResourcePath(context, ResourceUtil.RESOURCE_TYPE.assets, "ivw/" + ResWrapper.getInstance().getString(R.string.iflytek_app_id) + ".jet");
+//        String resPath = ResourceUtil.generateResourcePath(context, ResourceUtil.RESOURCE_TYPE.assets, "ivw/" + ResWrapper.getString(R.string.iflytek_app_id) + ".jet");
 //        param.append(ResourceUtil.IVW_RES_PATH + "=" + resPath);
 //        param.append("," + ResourceUtil.ENGINE_START + "=" + SpeechConstant.ENG_IVW);
 //        SpeechUtility.getUtility().setParameter(ResourceUtil.ENGINE_START, param.toString());
