@@ -530,7 +530,7 @@ public class IFlytekTools {
 
 //        SharedPreferences.Editor mEditor =  mUnderstanderSettingsSharedPreferences.edit();
 //        mEditor .putString("understander_language_preference", "mandarin");
-//        mEditor.commit();
+//        meditor.apply();
 
 
     }
@@ -572,7 +572,7 @@ public class IFlytekTools {
 
         SharedPreferences.Editor mEditor = mTtsSettingsSharedPreferences.edit();
         mEditor.putString("voicer_preference", voicer);
-        mEditor.commit();
+        meditor.apply();
     }
 
 
