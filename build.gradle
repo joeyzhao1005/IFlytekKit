@@ -6,9 +6,9 @@ dependencies {
 
     implementation fileTree(include: ['*.jar'], dir: '../libs_iflytek')
 
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 
-    implementation 'com.google.code.gson:gson:2.8.2'
+    implementation "com.google.code.gson:gson:${gson}"
 
     implementation project(':ZUtils')
 }
